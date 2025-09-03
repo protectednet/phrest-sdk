@@ -100,7 +100,7 @@ class PhrestSDK
    */
   public function setURL($url)
   {
-    $this->url = $url;
+    $this->url = rtrim($url, '/');
 
     return $this;
   }
@@ -307,7 +307,6 @@ class PhrestSDK
 
   /**
    * Makes a cURL HTTP request to the API and returns the response
-   * todo this needs to also handle PUT, POST, DELETE
    *
    * @param string                 $method
    * @param                        $path
@@ -322,31 +321,22 @@ class PhrestSDK
     RequestOptions $options = null
   )
   {
-    $client = new Client();
+    $client = new Client(['base_uri' => $this->url]);
 
-    // Build body
-    $body = new PostBody();
+    $guzzleOptions = [];
 
     if ($options)
     {
-      foreach ($options->getPostParams() as $name => $value)
+      $guzzleOptions['query'] = $options->getGetParams();
+
+      if (in_array($method, [RequestMethodEnum::POST, RequestMethodEnum::PUT, RequestMethodEnum::PATCH]))
       {
-        $body->setField($name, $value);
+        $guzzleOptions['form_params'] = $options->getPostParams();
       }
     }
 
-    // Prepare the request
-    $request = new Request(
-      $method,
-      $this->url . $path,
-      [],
-      $body,
-      []
-    );
-
-    // Get response
-    $response = $client->send($request);
-    $body = json_decode($response->getBody());
+    $response = $client->request($method, $path, $guzzleOptions);
+    $body = json_decode($response->getBody()->getContents());
 
     if (isset($body->data))
     {
