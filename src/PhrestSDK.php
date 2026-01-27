@@ -4,6 +4,7 @@ namespace Phrest\SDK;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Phalcon\Di\Di;
 use Phrest\API\DI\PhrestDI;
@@ -113,14 +114,14 @@ class PhrestSDK
    *
    * @param                        $method
    * @param                        $path
-   * @param RequestOptions         $options
+   * @param RequestOptions|null    $options
    *
    * @return Response
    */
   private function getRawResponse(
     $method,
     $path,
-    RequestOptions $options = null
+    ?RequestOptions $options = null
   )
   {
     // Backup super globals
@@ -200,7 +201,7 @@ class PhrestSDK
   /**
    * @param                $method
    * @param                $path
-   * @param RequestOptions $options
+   * @param RequestOptions|null $options
    *
    * @return Response|string
    * @throws Exception
@@ -208,7 +209,7 @@ class PhrestSDK
   public static function getResponse(
     $method,
     $path,
-    RequestOptions $options = null
+    ?RequestOptions $options = null
   )
   {
     $instance = static::getInstance();
@@ -239,7 +240,7 @@ class PhrestSDK
    *
    * @return Response
    */
-  public static function get($path, RequestOptions $options = null)
+  public static function get($path, ?RequestOptions $options = null)
   {
     return self::getResponse(RequestMethodEnum::GET, $path, $options);
   }
@@ -252,9 +253,9 @@ class PhrestSDK
    *
    * @return Response
    */
-  public static function post($path, $params = [])
+  public static function post($path, ?RequestOptions $options = null)
   {
-    return self::getResponse(RequestMethodEnum::POST, $path, $params);
+    return self::getResponse(RequestMethodEnum::POST, $path, $options);
   }
 
   /**
@@ -266,9 +267,9 @@ class PhrestSDK
    * @throws Exception
    * @return Response
    */
-  public static function put($path, $params = [])
+  public static function put($path, ?RequestOptions $options = null)
   {
-    return self::getResponse(RequestMethodEnum::PUT, $path);
+    return self::getResponse(RequestMethodEnum::PUT, $options);
   }
 
   /**
@@ -280,9 +281,9 @@ class PhrestSDK
    * @throws Exception
    * @return Response
    */
-  public static function patch($path, $params = [])
+  public static function patch($path, ?RequestOptions $options = null)
   {
-    return self::getResponse(RequestMethodEnum::PATCH, $path, $params);
+    return self::getResponse(RequestMethodEnum::PATCH, $path, $options);
   }
 
   /**
@@ -303,15 +304,16 @@ class PhrestSDK
    *
    * @param string                 $method
    * @param                        $path
-   * @param RequestOptions         $options
+   * @param RequestOptions|null    $options
    *
-   * @throws \Exception
    * @return string
+   * @throws \Exception
+   * @throws GuzzleException
    */
   private function getHTTPResponse(
     $method,
     $path,
-    RequestOptions $options = null
+    ?RequestOptions $options = null
   )
   {
     $client = new Client();
