@@ -2,21 +2,16 @@
 
 namespace Phrest\SDK;
 
+use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Post\PostBody;
-use Phalcon\DI;
-use Phalcon\Events\Manager;
-use Phalcon\Exception;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Registry;
+use GuzzleHttp\Psr7\Request;
+use Phalcon\Di\Di;
 use Phrest\API\DI\PhrestDI;
 use Phrest\API\Enums\RequestMethodEnum;
-use Phrest\API\Request\PhrestRequest;
 use Phrest\API\Response\Response;
 use Phrest\API\PhrestAPI;
-use Phalcon\DI as PhalconDI;
 use Phrest\SDK\Request\RequestOptions;
-use GuzzleHttp\Message\Request;
+use function json_encode;
 
 /**
  * SDK for Phalcon REST API
@@ -57,7 +52,7 @@ class PhrestSDK
       return $instance;
     }
 
-    $di = PhalconDI::getDefault();
+    $di = Di::getDefault();
 
     if (!$di)
     {
@@ -208,7 +203,7 @@ class PhrestSDK
    * @param RequestOptions $options
    *
    * @return Response|string
-   * @throws \Phalcon\Exception
+   * @throws Exception
    */
   public static function getResponse(
     $method,
@@ -234,10 +229,7 @@ class PhrestSDK
     }
 
     // todo better exception message with link
-    throw new Exception(
-      'No app configured for internal calls,
-          and no URL supplied for HTTP based calls'
-    );
+    throw new Exception('No app configured for internal calls, and no URL supplied for HTTP based calls');
   }
 
   /**
@@ -271,7 +263,7 @@ class PhrestSDK
    * @param       $path
    * @param array $params
    *
-   * @throws \Phalcon\Exception
+   * @throws Exception
    * @return Response
    */
   public static function put($path, $params = [])
@@ -285,7 +277,7 @@ class PhrestSDK
    * @param       $path
    * @param array $params
    *
-   * @throws \Phalcon\Exception
+   * @throws Exception
    * @return Response
    */
   public static function patch($path, $params = [])
@@ -324,25 +316,35 @@ class PhrestSDK
   {
     $client = new Client();
 
-    // Build body
-    $body = new PostBody();
+    // Build request
+    $bodyArray = [];
+    $body = null;
+    $headers = [];
 
     if ($options)
     {
       foreach ($options->getPostParams() as $name => $value)
       {
-        $body->setField($name, $value);
+        $bodyArray[$name] = $value;
+      }
+    }
+
+    if (!empty($bodyArray))
+    {
+      $body = json_encode($bodyArray);
+
+      if ($body)
+      {
+        $headers['Content-Type'] = 'application/json';
+      }
+      elseif ($body == '')
+      {
+        $headers['Content-Length'] = 0;
       }
     }
 
     // Prepare the request
-    $request = new Request(
-      $method,
-      $this->url . $path,
-      [],
-      $body,
-      []
-    );
+    $request = new Request($method, $this->url . $path, $headers, $body);
 
     // Get response
     $response = $client->send($request);

@@ -2,14 +2,14 @@
 
 namespace Phrest\SDK\Generator\Helper;
 
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
 use Phrest\SDK\Generator;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Generator\DocBlock\Tag\GenericTag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\PropertyGenerator;
 
 class ClassGen
 {
@@ -90,7 +90,7 @@ class ClassGen
    * @param string                   $body
    * @param string|DocBlockGenerator $docblock
    *
-   * @return \Zend\Code\Generator\MethodGenerator
+   * @return MethodGenerator
    */
   public static function method(
     $name,

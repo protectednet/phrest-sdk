@@ -2,12 +2,12 @@
 
 namespace Phrest\SDK\Generator\SDK;
 
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
+use Laminas\Code\Generator\ParameterGenerator;
 use Phrest\SDK\Generator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
 use Phrest\SDK\Generator\Request\RequestGenerator;
-use Zend\Code\Generator\DocBlock\Tag\GenericTag;
-use Zend\Code\Generator\ParameterGenerator;
 
 class SDKGenerator extends AbstractGenerator
 {

@@ -2,16 +2,9 @@
 
 namespace Phrest\SDK\Generator\Exception;
 
-use Phrest\SDK\Generator;
+use Laminas\Code\Generator\ClassGenerator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\GeneratorInterface;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Reflection\DocBlock\Tag\PropertyTag;
 
 class ExceptionGenerator extends AbstractGenerator
 {

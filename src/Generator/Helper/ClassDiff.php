@@ -2,17 +2,17 @@
 
 namespace Phrest\SDK\Generator\Helper;
 
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Reflection\ClassReflection;
 use PhpParser\Lexer;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
-use PhpParser\Parser;
+use PhpParser\Parser\Php8;
 use Phrest\SDK\Generator;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Reflection\ClassReflection;
 
 class ClassDiff
 {
@@ -66,7 +66,7 @@ class ClassDiff
      * PHP Reflections don't take into account use statements, so an entire
      * plugin is needed just for that. //shakes head
      */
-    $parser = new Parser(new Lexer());
+    $parser = new Php8(new Lexer());
 
     $nodes = $parser->parse($this->currentClassCode);
 
@@ -161,7 +161,7 @@ class ClassDiff
       $cg->setNamespaceName($classReflection->getNamespaceName());
     }
 
-    /* @var \Zend\Code\Reflection\ClassReflection $parentClass */
+    /* @var ClassReflection $parentClass */
     $parentClass = $classReflection->getParentClass();
     if ($parentClass)
     {
@@ -177,7 +177,7 @@ class ClassDiff
     $interfaceNames = array();
     foreach ($interfaces as $interface)
     {
-      /* @var \Zend\Code\Reflection\ClassReflection $interface */
+      /* @var ClassReflection $interface */
       $interfaceNames[] = $interface->getName();
     }
 

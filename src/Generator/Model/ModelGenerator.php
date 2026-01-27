@@ -2,16 +2,11 @@
 
 namespace Phrest\SDK\Generator\Model;
 
-use PhpParser\Parser;
-use Phrest\SDK\Generator;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
+use Laminas\Code\Generator\ParameterGenerator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Reflection\DocBlock\Tag\PropertyTag;
 
 class ModelGenerator extends AbstractGenerator
 {
@@ -69,7 +64,7 @@ class ModelGenerator extends AbstractGenerator
       [new ParameterGenerator('params', 'mixed', [])]
     )->setBody('return parent::findFirst($params);');
     $findFirst->setStatic(true);
-    $findFirst->getDocBlock()->setTag(new Tag\GenericTag('return', 'static'));
+    $findFirst->getDocBlock()->setTag(new GenericTag('return', 'static'));
 
     $class->addMethodFromGenerator(
       $findFirst

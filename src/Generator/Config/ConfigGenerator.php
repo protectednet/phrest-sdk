@@ -2,7 +2,7 @@
 
 namespace Phrest\SDK\Generator\Config;
 
-use Phalcon\Config;
+use Phalcon\Config\Config;
 use Phrest\SDK\Generator\GeneratorInterface;
 
 class ConfigGenerator implements GeneratorInterface
@@ -15,7 +15,7 @@ class ConfigGenerator implements GeneratorInterface
   /**
    * CollectionConfigManager constructor.
    *
-   * @param Config          $collectionConfig
+   * @param Config $collectionConfig
    */
   public function __construct(Config $buildConfig)
   {

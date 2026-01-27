@@ -2,11 +2,10 @@
 
 namespace Phrest\SDK\Generator\Response;
 
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\GeneratorInterface;
-use Zend\Code\Generator\ParameterGenerator;
 
 class ResponseGenerator extends AbstractGenerator
 {

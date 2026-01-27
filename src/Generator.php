@@ -2,7 +2,7 @@
 
 namespace Phrest\SDK;
 
-use Phalcon\Config;
+use Phalcon\Config\Config;
 use Phrest\SDK\Generator\Config\ConfigGenerator;
 use Phrest\SDK\Generator\Controller\ControllerGenerator;
 use Phrest\SDK\Generator\Exception\ExceptionGenerator;

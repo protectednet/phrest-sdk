@@ -2,11 +2,11 @@
 
 namespace Phrest\SDK\Generator\Request;
 
-use Phalcon\Config;
+use Laminas\Code\Generator\ParameterGenerator;
+use Phalcon\Config\Config;
 use Phrest\SDK\Generator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
-use Zend\Code\Generator\ParameterGenerator;
 
 class RequestGenerator extends AbstractGenerator
 {

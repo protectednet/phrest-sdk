@@ -2,14 +2,14 @@
 
 namespace Phrest\SDK\Generator\Controller;
 
-use Phalcon\Config;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Phalcon\Config\Config;
 use Phrest\SDK\Generator;
 use Phrest\SDK\Generator\AbstractGenerator;
 use Phrest\SDK\Generator\Helper\ClassGen;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlock\Tag\GenericTag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\ParameterGenerator;
 
 class ControllerGenerator extends AbstractGenerator
 {

@@ -2,7 +2,7 @@
 
 namespace Phrest\SDK\Generator\Helper;
 
-use Phalcon\Config;
+use Laminas\Code\Generator\GeneratorInterface;
 use Phrest\SDK\Generator;
 use Phrest\SDK\Generator\Controller\ControllerGenerator;
 use Phrest\SDK\Generator\Exception\ExceptionGenerator;
@@ -330,7 +330,7 @@ class Files
   }
 
   /**
-   * @param \Zend\Code\Generator\GeneratorInterface $class
+   * @param GeneratorInterface $class
    *
    * @return string
    */
